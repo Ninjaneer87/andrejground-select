@@ -9,13 +9,13 @@ export function canFitBellow<T extends HTMLElement>(el: T): boolean {
   return elHeight < distanceFromBottom;
 }
 
-export function findNextIdxOnGivenKey(currentIdx: number, key: string, arr: Option[]): number {
-  let filteredOptions = arr.slice(currentIdx + 1).filter(opt => opt.label.toLowerCase().startsWith(key.toLocaleLowerCase()));
+export function findNextIndexForGivenChar(currentIndex: number, char: string, options: Option[]): number {
+  let filteredOptions = options.slice(currentIndex + 1).filter(opt => opt.label.toLowerCase().startsWith(char.toLocaleLowerCase()));
   if(!filteredOptions.length) {
-    filteredOptions = arr.filter(opt => opt.label.toLowerCase().startsWith(key.toLocaleLowerCase()));
+    filteredOptions = options.filter(opt => opt.label.toLowerCase().startsWith(char.toLocaleLowerCase()));
   }
   const nextOption = filteredOptions[0];
-  const nextHoverIdx = arr.indexOf(nextOption);
+  const nextHoverIndex = options.indexOf(nextOption);
 
-  return nextHoverIdx;
+  return nextHoverIndex;
 }

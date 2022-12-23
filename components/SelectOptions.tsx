@@ -10,20 +10,20 @@ type Props = {
   options: Option[];
   value?: Option;
   selectOption: (option: Option) => void;
-  hoverIdx: number;
-  setHoverIdx: (index: number) => void;
+  hoveredIndex: number;
+  setHoveredIndex: (index: number) => void;
 };
 
 const SelectOptions = React.forwardRef<HTMLLIElement, Props>(
   (
-    { open, options, value, selectOption, hoverIdx, setHoverIdx },
-    hoverRef
+    { open, options, value, selectOption, hoveredIndex, setHoveredIndex },
+    hoveredRef
   ) => {
-    const { boxRef, boxPosition } = useBoxPosition<HTMLLIElement, number>(hoverIdx);
+    const { boxRef, boxPosition } = useBoxPosition<HTMLLIElement, number>(hoveredIndex);
     const selectedRef = React.useRef<HTMLLIElement>(null);
     const rootRef = React.useRef<HTMLUListElement>(null);
-    const hoverActiveRef = useSyncRefs(hoverRef, boxRef);
-    const hoverActiveSelectedRef = useSyncRefs(hoverRef, boxRef, selectedRef);
+    const syncBoxHoveredRefs = useSyncRefs(boxRef, hoveredRef);
+    const syncBoxHoveredSelectedRefs = useSyncRefs(boxRef, hoveredRef, selectedRef);
     const [fitsBellow, setFitsBellow] = React.useState(true);
 
     React.useEffect(() => {
@@ -50,10 +50,10 @@ const SelectOptions = React.forwardRef<HTMLLIElement, Props>(
               e.stopPropagation();
               selectOption(option);
             }}
-            onMouseEnter={() => setHoverIdx(i)}
+            onMouseEnter={() => setHoveredIndex(i)}
             {...(option === value && { ref: selectedRef })}
-            {...(i === hoverIdx && { ref: hoverActiveRef })}
-            {...(i === hoverIdx && option === value && { ref: hoverActiveSelectedRef })}
+            {...(i === hoveredIndex && { ref: syncBoxHoveredRefs })}
+            {...(i === hoveredIndex && option === value && { ref: syncBoxHoveredSelectedRefs })}
             className={`
               ${classes.option} 
               ${option === value ? classes['option--selected'] : ''}

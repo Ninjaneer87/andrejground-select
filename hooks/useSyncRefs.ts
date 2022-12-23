@@ -1,34 +1,22 @@
 import * as React from "react";
 
-export function useSyncRefs<TType>(
+export function useSyncRefs<T>(
   ...refs: (
-    | React.MutableRefObject<TType | null>
-    | ((instance: TType) => void)
+    | React.MutableRefObject<T | null>
+    | ((instance: T) => void)
     | null
   )[]
 ) {
-  let cache = React.useRef(refs);
+  const cache = React.useRef(refs);
 
-  React.useEffect(() => {
-    cache.current = refs;
-  }, [refs]);
+  React.useEffect(() => { cache.current = refs }, [refs]);
 
-  return React.useCallback(
-    (value: TType) => {
-      for (let ref of cache.current) {
-        if (ref == null) {
-          // console.log('ref is null');
-          continue;
-        }
-        if (typeof ref === 'function') {
-          // console.log('ref is a function. Returning called function');
-          ref(value)
-        } else {
-          // console.log('returning the value: ', value);
-          ref.current = value
-        };
-      }
-    },
-    [cache]
-  );
+  const syncRefs = React.useCallback((value: T) => {
+    for (let ref of cache.current) {
+      if (ref === null) continue;
+      (typeof ref === 'function') ? ref(value) : (ref.current = value)
+    }
+  }, [cache]);
+  
+  return syncRefs;
 };
