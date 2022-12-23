@@ -6,8 +6,6 @@ export function canFitBellow<T extends HTMLElement>(el: T): boolean {
   const parent = el.parentElement;
   const distanceFromBottom = document.body.offsetHeight - (parent.offsetTop + parent.offsetHeight);
   const elHeight = el.offsetHeight;
-  console.log({elHeight})
-  console.log({distanceFromBottom})
   
   return elHeight < distanceFromBottom;
 }
