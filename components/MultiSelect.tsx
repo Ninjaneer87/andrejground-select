@@ -26,7 +26,6 @@ const MultiSelect = ({ selected, onChange, options }: Props) => {
     selected.includes(option) 
       ? onChange(selected.filter(opt => opt !== option))
       : onChange([...selected, option]);
-    setOpen(false);
   };
   
   const clearOptions = () => {
@@ -48,7 +47,7 @@ const MultiSelect = ({ selected, onChange, options }: Props) => {
     switch (e.code) {
       case 'Enter':
       case 'Space': {
-        setOpen((prev) => !prev);
+        if(!open) setOpen(true);
         if (open) selectOption(options[hoveredIndex]);
         break;
       }
@@ -107,13 +106,13 @@ const MultiSelect = ({ selected, onChange, options }: Props) => {
                 removeOption(opt);
               }}
               onKeyDown={e => e.stopPropagation()}
-              className={classes['option-badge']}
+              className={`${classes['option-badge']} blur-in`}
             >
               {opt.label}
               <span className={classes['remove-span']}>&times;</span>
             </button> 
           ))
-          : 'Select options'}
+          : <span className='blur-in'>Select options</span>}
       </span>
 
       <button

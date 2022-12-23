@@ -92,7 +92,9 @@ const Select = ({ selected, onChange, options }: Props) => {
       onClick={() => setOpen((prev) => !prev)}
       onBlur={() => setOpen(false)}
     >
-      <span className={classes.value}>{selected?.label || 'Select option'}</span>
+      <span className={classes.value}>
+        {selected?.label || <span className='blur-in'>Select options</span>}
+      </span>
 
       <button
         onClick={(e) => {
