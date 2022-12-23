@@ -11,32 +11,39 @@ export type Option = {
 
 type Props = {
   options: Option[];
-  selected?: Option;
-  onChange: (selected: Option | undefined) => void;
+  selected: Option[];
+  onChange: (selected: Option[]) => void;
 };
 
-const Select = ({ selected, onChange, options }: Props) => {
+const MultiSelect = ({ selected, onChange, options }: Props) => {
   const [open, setOpen] = React.useState(false);
   const { mounted, mount, unmount } = useMounted(false);
   const [hoveredIndex, setHoveredIndex] = React.useState(0);
   const rootRef = React.useRef<HTMLDivElement>(null);
   const hoveredRef = React.useRef<HTMLLIElement>(null);
-
+  
   const selectOption = (option: Option) => {
-    option !== selected && onChange(option);
+    selected.includes(option) 
+      ? onChange(selected.filter(opt => opt !== option))
+      : onChange([...selected, option]);
     setOpen(false);
   };
-
-  const clearOption = () => {
-    onChange(undefined);
+  
+  const clearOptions = () => {
+    onChange([]);
     setTimeout(() => rootRef.current?.focus());
   }
 
+  const removeOption = (option: Option) => {
+    selectOption(option);
+    setTimeout(() => rootRef.current?.focus());
+  };
+
   React.useEffect(() => {
     open ? mount() : unmount(200);
-    if(open) setHoveredIndex(Math.max(options.indexOf(selected), 0));
+    if(open) setHoveredIndex(Math.max(options.indexOf(selected[0]), 0));
   }, [open, mount, unmount]);
-
+  
   const keyHandler: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
     switch (e.code) {
       case 'Enter':
@@ -62,7 +69,7 @@ const Select = ({ selected, onChange, options }: Props) => {
       }
 
       case 'Delete': {
-        onChange(undefined);
+        onChange([]);
         break;
       }
 
@@ -81,8 +88,7 @@ const Select = ({ selected, onChange, options }: Props) => {
       }
     }
   };
-
-
+  
   return (
     <div
       ref={rootRef}
@@ -92,16 +98,32 @@ const Select = ({ selected, onChange, options }: Props) => {
       onClick={() => setOpen((prev) => !prev)}
       onBlur={() => setOpen(false)}
     >
-      <span className={classes.value}>{selected?.label || 'Select option'}</span>
+      <span className={classes['multi-value']}>
+        {selected?.length 
+          ? selected.map(opt => (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                removeOption(opt);
+              }}
+              onKeyDown={e => e.stopPropagation()}
+              className={classes['option-badge']}
+            >
+              {opt.label}
+              <span className={classes['remove-span']}>&times;</span>
+            </button> 
+          ))
+          : 'Select options'}
+      </span>
 
       <button
         onClick={(e) => {
           e.stopPropagation();
-          clearOption();
+          clearOptions();
         }}
         onKeyDown={e => e.stopPropagation()}
-        disabled={!selected}
-        className={`${classes['clear-btn']} ${selected ? 'blur-in' : 'blur-out'}`}
+        disabled={!selected.length}
+        className={`${classes['clear-btn']} ${!!selected.length ? 'blur-in' : 'blur-out'}`}
       >
         &times;
       </button>
@@ -114,7 +136,7 @@ const Select = ({ selected, onChange, options }: Props) => {
         <Options
           options={options}
           open={open}
-          selected={selected}
+          selectedMulti={selected}
           selectOption={selectOption}
           hoveredIndex={hoveredIndex}
           setHoveredIndex={setHoveredIndex}
@@ -125,4 +147,4 @@ const Select = ({ selected, onChange, options }: Props) => {
   );
 };
 
-export default Select;
+export default MultiSelect;

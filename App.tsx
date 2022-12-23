@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Layout from './components/Layout';
+import MultiSelect from './components/MultiSelect';
 import Select, { Option } from './components/Select';
 import './style.scss';
 
@@ -14,11 +15,21 @@ const options: Option[] = [
 ];
 
 export default function App() {
-  const [value, setValue] = React.useState<Option | undefined>();
+  const [selected, setSelected] = React.useState<Option | undefined>();
+  const [selectedMulti, setSelectedMulti] = React.useState<Option[]>([]);
 
   return (
     <Layout>
-      <Select options={options} value={value} onChange={setValue} />
+      <Select 
+        options={options} 
+        selected={selected} 
+        onChange={setSelected} 
+      />
+      <MultiSelect
+        options={options}
+        selected={selectedMulti}
+        onChange={setSelectedMulti}
+      />
     </Layout>
   );
 }

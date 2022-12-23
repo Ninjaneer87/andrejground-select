@@ -11,7 +11,6 @@
   padding: 0.6em;
   transition: all 250ms ease-in-out;
   margin: 20px 0;
-  cursor: pointer;
 
   &::after {
     content: '';
@@ -75,3 +74,41 @@
   }
 }
 
+// MULTI-SELECT SPECIFIC
+.multi-value {
+  flex-grow: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6em;
+}
+
+.option-badge {
+  display: flex;
+  align-items: center;
+  box-shadow: var(--shadow-3d-button-inset);
+  outline: none;
+  border: none;
+  transition: all 150ms ease-in-out;
+  transition-property: color, opacity;
+  background-color: transparent;
+  color: var(--color-text);
+  padding: .3em 1em;
+  cursor: pointer;
+  gap: .6em;
+  opacity: .8;
+
+  .remove-span {
+    transition: all 250ms ease-in-out;
+    transition-property: color, transform;
+  }
+
+  &:hover,
+  &:focus {
+    opacity: 1;
+
+    .remove-span {
+      color: var(--color-primary);
+      transform: rotate(90deg);
+    }
+  }
+}
