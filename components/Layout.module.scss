@@ -1,11 +1,16 @@
 header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   padding: 0.5rem 1.5rem;
   border-bottom: 1px solid var(--color-border-header);
   min-height: 70px;
   box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1680px;
+  margin: auto;
 }
 
 .logo {
