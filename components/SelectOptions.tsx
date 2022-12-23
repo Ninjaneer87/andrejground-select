@@ -19,11 +19,11 @@ const SelectOptions = React.forwardRef<HTMLLIElement, Props>(
     { open, options, value, selectOption, hoverIdx, setHoverIdx },
     hoverRef
   ) => {
-    const { activeBoxRef, boxPosition } = useBoxPosition<HTMLLIElement, number>(hoverIdx);
+    const { boxRef, boxPosition } = useBoxPosition<HTMLLIElement, number>(hoverIdx);
     const selectedRef = React.useRef<HTMLLIElement>(null);
     const rootRef = React.useRef<HTMLUListElement>(null);
-    const hoverActiveRef = useSyncRefs(hoverRef, activeBoxRef);
-    const hoverActiveSelectedRef = useSyncRefs(hoverRef, activeBoxRef, selectedRef);
+    const hoverActiveRef = useSyncRefs(hoverRef, boxRef);
+    const hoverActiveSelectedRef = useSyncRefs(hoverRef, boxRef, selectedRef);
     const [fitsBellow, setFitsBellow] = React.useState(true);
 
     React.useEffect(() => {
