@@ -28,7 +28,7 @@ const Options = React.forwardRef<HTMLLIElement, Props>(
     React.useEffect(() => {
       if (open) {
         setFitsBellow(canFitBellow<HTMLUListElement>(rootRef.current));
-        boxRef.current?.scrollIntoView({ block: 'center' });
+        boxRef.current?.scrollIntoView({ block: 'nearest' });
       }
     }, [open]);
 

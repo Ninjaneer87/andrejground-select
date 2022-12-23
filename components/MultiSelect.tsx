@@ -26,6 +26,8 @@ const MultiSelect = ({ selected, onChange, options }: Props) => {
     selected.includes(option) 
       ? onChange(selected.filter(opt => opt !== option))
       : onChange([...selected, option]);
+      
+    setTimeout(() => hoveredRef.current?.scrollIntoView({ block: 'nearest' }), 0);
   };
   
   const clearOptions = () => {
@@ -101,6 +103,7 @@ const MultiSelect = ({ selected, onChange, options }: Props) => {
         {selected?.length 
           ? selected.map(opt => (
             <button
+              key={opt.value}
               onClick={(e) => {
                 e.stopPropagation();
                 removeOption(opt);

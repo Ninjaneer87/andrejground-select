@@ -17,15 +17,14 @@ const Layout = ({ children }: React.PropsWithChildren) => {
       <header>
         <div className={classes.container}>
           <a href={andrejgroundUrl} target='_blank' className={classes.logo}>
-            <img src={logoUrl} alt="AndrejGround logo" width={50} height={50} />
+            <div className={classes['logo-img']}>
+              <img src={logoUrl} alt="AndrejGround logo" width={50} height={50} />
+            </div>
+            <div className={classes['logo-caption']}>
+              <span className="color-primary">Andrej</span>Ground
+            </div>
           </a>
           
-          <span>
-            <a href={andrejgroundUrl} target='_blank'>
-              Andrej<span className="color-primary">Ground</span>
-            </a> | Select
-          </span>
-
           <button
             className={classes['dark-toggle']}
             onClick={() => setDark(prev => !prev)}
