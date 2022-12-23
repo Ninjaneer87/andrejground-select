@@ -5,20 +5,7 @@ body {
   padding: 0;
   margin: 0;
 }
-div,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-span,
-p,
-button,
-ul,
-ol,
-li,
-a {
+div, h1, h2, h3, h4, h5, h6, span, p, button, ul, ol, li, a {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent !important;
 }
@@ -27,7 +14,7 @@ a {
   text-decoration: none;
   color: inherit;
 }
-h1,h2,h3,h4,h5,h6 {
+h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
   position: relative;
   margin: 30px 0;
@@ -50,10 +37,6 @@ button {
   font-family: inherit;
 }
 body {
-  min-height: 100vh;
-  font-family: 'Montserrat', sans-serif;
-  line-height: 1.6;
-  
   // static colors
   --color-primary: #00e5ff;
   --color-border-header: #00e5ff6c;
@@ -66,9 +49,11 @@ body {
   --shadow-3d-button-inset: inset 2px -2px 2px 0 #ffffff99,
     inset -2px 2px 2px 0 #00000019;
 
+  min-height: 100vh;
+  font-family: 'Montserrat',  sans-serif;
+  line-height: 1.6;
   transition: all 150ms ease-in-out;
   transition-property: background-color, color;
-
   background-color: var(--color-background);
   color: var(--color-text);
 }

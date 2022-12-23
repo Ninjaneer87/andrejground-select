@@ -61,6 +61,7 @@ main {
   border: none;
   display: flex;
   align-items: center;
+  padding: 1em;
   gap: 0.5rem;
 
   span {
@@ -69,7 +70,7 @@ main {
   }
 
   span.active {
-    transform: scale(1.2);
+    transform: scale(1.25);
     color: var(--color-primary);
   }
 }
