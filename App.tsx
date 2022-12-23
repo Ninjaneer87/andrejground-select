@@ -20,11 +20,16 @@ export default function App() {
 
   return (
     <Layout>
+      <h2>Regular select</h2>
       <Select 
         options={options} 
         selected={selected} 
         onChange={setSelected} 
       />
+
+      <div className="divider" />
+      
+      <h2>Multi select</h2>
       <MultiSelect
         options={options}
         selected={selectedMulti}
