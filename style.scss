@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+body {
+  font-family: 'Montserrat', sans-serif;
+  --color-primary: #00e5ff;
+  --color-border: #21212150;
+  --color-border-header: #00ccff6c;
+  --color-text: #212121;
+  --color-background: #f0f0f3;
+  --shadow-3d-card: 12px -12px 25px 0 #ffffffee, -12px 12px 25px 0 #00000020;
+  --shadow-3d-button: 8px -8px 15px 0 #ffffffee, -8px 8px 15px 0 #00000011;
+  --shadow-3d-button-inset: inset 2px -2px 2px 0 #ffffff99,
+    inset -2px 2px 2px 0 #00000019;
+
+  transition: all 150ms ease-in-out;
+  transition-property: background-color, color;
+
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+body.dark {
+  --color-primary: #00e5ff;
+  --color-border: #ffffff50;
+  --color-border-header: #00e5ff6c;
+  --color-text: #fff;
+  --color-background: #212121;
+  --shadow-3d-card: 8px -8px 15px 0 #ffffff10, -8px 8px 15px 0 #00000077;
+  --shadow-3d-button: 8px -8px 15px 0 #ffffff10, -8px 8px 15px 0 #00000055;
+  --shadow-3d-button-inset: inset 2px -2px 2px 0 #ffffff15,
+    inset -2px 2px 2px 0 #00000055;
+}
+
+.color-primary {
+  color: var(--color-primary);
+}
+
+// animate
+.blur-in {
+  animation: blur-in 200ms ease-in;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+}
+@keyframes blur-in {
+  0% {
+    filter: blur(10px);
+    opacity: 0;
+    pointer-events: none;
+  }
+  100% {
+    filter: blur(0px);
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+.blur-out {
+  animation: blur-out 200ms ease-in;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+}
+@keyframes blur-out {
+  0% {
+    filter: blur(0px);
+    opacity: 1;
+    pointer-events: all;
+  }
+  100% {
+    filter: blur(10px);
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    0deg,
+    transparent 0%,
+    var(--color-text) 50%,
+    transparent 100%
+  );
+  border-radius: 100vh;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    0deg,
+    transparent 0%,
+    var(--color-primary) 50%,
+    transparent 100%
+  );
+}
