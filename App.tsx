@@ -35,14 +35,6 @@ export default function App() {
         selected={selectedMulti}
         onChange={setSelectedMulti}
       />
-
-      <div style={{width: 200}}>
-        <MultiSelect
-          options={options}
-          selected={selectedMulti}
-          onChange={setSelectedMulti}
-        />
-      </div>
     </Layout>
   );
 }

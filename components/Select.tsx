@@ -99,23 +99,21 @@ const Select = ({ selected, onChange, options }: Props) => {
         {selected?.label || <span className='blur-in'>Select option</span>}
       </span>
 
-      <div className={classes.controls}>
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            clearOption();
-          }}
-          onKeyDown={e => e.stopPropagation()}
-          disabled={!selected}
-          className={`${classes['clear-btn']} ${selected ? 'blur-in' : 'blur-out'}`}
-        >
-          &times;
-        </button>
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          clearOption();
+        }}
+        onKeyDown={e => e.stopPropagation()}
+        disabled={!selected}
+        className={`${classes['clear-btn']} ${selected ? 'blur-in' : 'blur-out'}`}
+      >
+        &times;
+      </button>
 
-        <div className={classes.divider} />
-        
-        <div className={`${classes.caret} ${open ? classes['caret--open'] : ''}`} />
-      </div>
+      <div className={classes.divider} />
+      
+      <div className={`${classes.caret} ${open ? classes['caret--open'] : ''}`} />
 
       {optionsMounted ? (
         <Options

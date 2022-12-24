@@ -121,23 +121,22 @@ const MultiSelect = ({ selected, onChange, options }: Props) => {
           : <span className='blur-in'>Select options</span>}
       </span>
 
-      <div className={classes.controls}>
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            clearOptions();
-          }}
-          onKeyDown={e => e.stopPropagation()}
-          disabled={!selected.length}
-          className={`${classes['clear-btn']} ${!!selected.length ? 'blur-in' : 'blur-out'}`}
-        >
-          &times;
-        </button>
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          clearOptions();
+        }}
+        onKeyDown={e => e.stopPropagation()}
+        disabled={!selected.length}
+        className={`${classes['clear-btn']} ${!!selected.length ? 'blur-in' : 'blur-out'}`}
+      >
+        &times;
+      </button>
 
-        <div className={classes.divider} />
-        
-        <div className={`${classes.caret} ${open ? classes['caret--open'] : ''}`} />
-      </div>
+      <div className={classes.divider} />
+      
+      <div className={`${classes.caret} ${open ? classes['caret--open'] : ''}`} />
+      
       {optionsMounted ? (
         <Options
           options={options}
