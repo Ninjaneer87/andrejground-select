@@ -5,7 +5,7 @@ import Select, { Option } from './components/Select';
 import './styles/style.scss';
 
 const options: Option[] = [
-  { label: 'Firstoptionoptionoptionoptionoptionoptionoptionoptionoptionoptionoptionoptionoptionoptionoptionoptionoptionoptionoption option, the one with a very long label', value: 1 },
+  { label: 'First option with a veeery long label', value: 1 },
   { label: 'Second', value: 2 },
   { label: 'Third', value: 3 },
   { label: 'Fourth', value: 4 },
