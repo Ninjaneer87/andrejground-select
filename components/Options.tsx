@@ -13,28 +13,38 @@ type Props = {
   selectOption: (option: Option) => void;
   hoveredIndex: number;
   setHoveredIndex: (index: number) => void;
+  rootEl: HTMLElement;
 };
 
 const Options = React.forwardRef<HTMLLIElement, Props>(
   (
-    { open, options, selected, selectedMulti, selectOption, hoveredIndex, setHoveredIndex },
+    {
+      open,
+      options,
+      selected,
+      selectedMulti,
+      selectOption,
+      hoveredIndex,
+      setHoveredIndex,
+      rootEl,
+    },
     hoveredRef
   ) => {
     const { boxRef, boxPosition } = useBoxPosition<HTMLLIElement, number>(hoveredIndex);
-    const rootRef = React.useRef<HTMLUListElement>(null);
+    const listRef = React.useRef<HTMLUListElement>(null);
     const syncBoxHoveredRefs = useSyncRefs(boxRef, hoveredRef);
     const [fitsBellow, setFitsBellow] = React.useState(true);
 
     React.useEffect(() => {
       if (open) {
-        setFitsBellow(canFitBellow<HTMLUListElement>(rootRef.current));
+        setFitsBellow(canFitBellow(rootEl, listRef.current));
         boxRef.current?.scrollIntoView({ block: 'nearest' });
       }
     }, [open]);
 
     return (
       <ul
-        ref={rootRef}
+        ref={listRef}
         className={`
           ${classes.options} 
           ${classes[`options--${fitsBellow ? 'bellow' : 'above'}`]}

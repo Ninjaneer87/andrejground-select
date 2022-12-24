@@ -17,7 +17,7 @@ type Props = {
 
 const MultiSelect = ({ selected, onChange, options }: Props) => {
   const [open, setOpen] = React.useState(false);
-  const { mounted, mount, unmount } = useMounted(false);
+  const [optionsMounted, setOptionsMounted] = useMounted(false);
   const [hoveredIndex, setHoveredIndex] = React.useState(0);
   const rootRef = React.useRef<HTMLDivElement>(null);
   const hoveredRef = React.useRef<HTMLLIElement>(null);
@@ -41,9 +41,12 @@ const MultiSelect = ({ selected, onChange, options }: Props) => {
   };
 
   React.useEffect(() => {
-    open ? mount() : unmount(200);
-    if(open) setHoveredIndex(Math.max(options.indexOf(selected[0]), 0));
-  }, [open, mount, unmount]);
+    if(open) {
+      setOptionsMounted(true);
+      setHoveredIndex(Math.max(options.indexOf(selected[0]), 0));
+    } 
+    else setOptionsMounted(false, 200);
+  }, [open, setOptionsMounted]);
   
   const keyHandler: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
     switch (e.code) {
@@ -99,10 +102,10 @@ const MultiSelect = ({ selected, onChange, options }: Props) => {
       onClick={() => setOpen((prev) => !prev)}
       onBlur={() => setOpen(false)}
     >
-      <span className={classes['multi-value']}>
+      <span className={classes.values}>
         {selected?.length 
           ? selected.map(opt => (
-            <button
+            <span
               key={opt.value}
               onClick={(e) => {
                 e.stopPropagation();
@@ -111,30 +114,31 @@ const MultiSelect = ({ selected, onChange, options }: Props) => {
               onKeyDown={e => e.stopPropagation()}
               className={`${classes['option-badge']} blur-in`}
             >
-              {opt.label}
+              <span className={classes['badge-label']}>{opt.label}</span>
               <span className={classes['remove-span']}>&times;</span>
-            </button> 
+            </span> 
           ))
           : <span className='blur-in'>Select options</span>}
       </span>
 
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          clearOptions();
-        }}
-        onKeyDown={e => e.stopPropagation()}
-        disabled={!selected.length}
-        className={`${classes['clear-btn']} ${!!selected.length ? 'blur-in' : 'blur-out'}`}
-      >
-        &times;
-      </button>
+      <div className={classes.controls}>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            clearOptions();
+          }}
+          onKeyDown={e => e.stopPropagation()}
+          disabled={!selected.length}
+          className={`${classes['clear-btn']} ${!!selected.length ? 'blur-in' : 'blur-out'}`}
+        >
+          &times;
+        </button>
 
-      <div className={classes.divider} />
-      
-      <div className={`${classes.caret} ${open ? classes['caret--open'] : ''}`} />
-
-      {mounted ? (
+        <div className={classes.divider} />
+        
+        <div className={`${classes.caret} ${open ? classes['caret--open'] : ''}`} />
+      </div>
+      {optionsMounted ? (
         <Options
           options={options}
           open={open}
@@ -142,6 +146,7 @@ const MultiSelect = ({ selected, onChange, options }: Props) => {
           selectOption={selectOption}
           hoveredIndex={hoveredIndex}
           setHoveredIndex={setHoveredIndex}
+          rootEl={rootRef.current}
           ref={hoveredRef}
         />
       ) : null}

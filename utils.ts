@@ -1,19 +1,24 @@
-import { Option } from "./components/Select";
+import { Option } from './components/Select';
 
-export function canFitBellow<T extends HTMLElement>(el: T): boolean {
-  if(!el) return false;
+export function canFitBellow(rootEl: HTMLElement, el: HTMLElement): boolean {
+  if (!el) return false;
 
-  const parent = el.parentElement;
-  const distanceFromBottom = document.body.offsetHeight - (parent.offsetTop + parent.offsetHeight);
   const elHeight = el.offsetHeight;
-  
+  const distanceFromBottom = document.body.offsetHeight - (rootEl.offsetTop + rootEl.offsetHeight);
+
   return elHeight < distanceFromBottom;
 }
 
-export function findNextIndexForGivenChar(currentIndex: number, char: string, options: Option[]): number {
-  let filteredOptions = options.slice(currentIndex + 1).filter(opt => opt.label.toLowerCase().startsWith(char.toLocaleLowerCase()));
-  if(!filteredOptions.length) {
-    filteredOptions = options.filter(opt => opt.label.toLowerCase().startsWith(char.toLocaleLowerCase()));
+export function findNextIndexForGivenChar(
+  currentIndex: number,
+  char: string,
+  options: Option[]
+): number {
+  const charFilter = (opt: Option) => opt.label.toLowerCase().startsWith(char.toLowerCase());
+
+  let filteredOptions = options.slice(currentIndex + 1).filter(charFilter)
+  if (!filteredOptions.length) {
+    filteredOptions = options.filter(charFilter)
   }
   const nextOption = filteredOptions[0];
   const nextHoverIndex = options.indexOf(nextOption);

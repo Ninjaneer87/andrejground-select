@@ -1,0 +1,22 @@
+body {
+  // static colors
+  --color-primary: #00e5ff;
+  --color-border-header: #00e5ff6c;
+
+  // themed colors
+  --color-text: #212121;
+  --color-background: #f0f0f3;
+  --shadow-3d-card: 12px -12px 25px 0 #ffffffee, -12px 12px 25px 0 #00000020;
+  --shadow-3d-button: 8px -8px 15px 0 #ffffffee, -8px 8px 15px 0 #00000011;
+  --shadow-3d-button-inset: inset 2px -2px 2px 0 #ffffff99,
+    inset -2px 2px 2px 0 #00000019;
+}
+
+body.dark {
+  --color-text: #fff;
+  --color-background: #212121;
+  --shadow-3d-card: 8px -8px 15px 0 #ffffff10, -8px 8px 15px 0 #00000077;
+  --shadow-3d-button: 8px -8px 15px 0 #ffffff10, -8px 8px 15px 0 #00000055;
+  --shadow-3d-button-inset: inset 2px -2px 2px 0 #ffffff15,
+    inset -2px 2px 2px 0 #00000055;
+}

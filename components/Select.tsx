@@ -17,7 +17,7 @@ type Props = {
 
 const Select = ({ selected, onChange, options }: Props) => {
   const [open, setOpen] = React.useState(false);
-  const { mounted, mount, unmount } = useMounted(false);
+  const [optionsMounted, setOptionsMounted] = useMounted(false);
   const [hoveredIndex, setHoveredIndex] = React.useState(0);
   const rootRef = React.useRef<HTMLDivElement>(null);
   const hoveredRef = React.useRef<HTMLLIElement>(null);
@@ -33,9 +33,12 @@ const Select = ({ selected, onChange, options }: Props) => {
   }
 
   React.useEffect(() => {
-    open ? mount() : unmount(200);
-    if(open) setHoveredIndex(Math.max(options.indexOf(selected), 0));
-  }, [open, mount, unmount]);
+    if(open) {
+      setOptionsMounted(true);
+      setHoveredIndex(Math.max(options.indexOf(selected), 0));
+    } 
+    else setOptionsMounted(false, 200);
+  }, [open,setOptionsMounted]);
 
   const keyHandler: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
     switch (e.code) {
@@ -93,26 +96,28 @@ const Select = ({ selected, onChange, options }: Props) => {
       onBlur={() => setOpen(false)}
     >
       <span className={classes.value}>
-        {selected?.label || <span className='blur-in'>Select options</span>}
+        {selected?.label || <span className='blur-in'>Select option</span>}
       </span>
 
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          clearOption();
-        }}
-        onKeyDown={e => e.stopPropagation()}
-        disabled={!selected}
-        className={`${classes['clear-btn']} ${selected ? 'blur-in' : 'blur-out'}`}
-      >
-        &times;
-      </button>
+      <div className={classes.controls}>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            clearOption();
+          }}
+          onKeyDown={e => e.stopPropagation()}
+          disabled={!selected}
+          className={`${classes['clear-btn']} ${selected ? 'blur-in' : 'blur-out'}`}
+        >
+          &times;
+        </button>
 
-      <div className={classes.divider} />
-      
-      <div className={`${classes.caret} ${open ? classes['caret--open'] : ''}`} />
+        <div className={classes.divider} />
+        
+        <div className={`${classes.caret} ${open ? classes['caret--open'] : ''}`} />
+      </div>
 
-      {mounted ? (
+      {optionsMounted ? (
         <Options
           options={options}
           open={open}
@@ -120,6 +125,7 @@ const Select = ({ selected, onChange, options }: Props) => {
           selectOption={selectOption}
           hoveredIndex={hoveredIndex}
           setHoveredIndex={setHoveredIndex}
+          rootEl={rootRef.current}
           ref={hoveredRef}
         />
       ) : null}

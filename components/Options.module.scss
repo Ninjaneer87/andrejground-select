@@ -47,6 +47,9 @@
   padding: .8em .6em;
   cursor: pointer;
   outline: none;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+  flex-shrink: 0;
 
   &--selected {
     color: var(--color-primary);

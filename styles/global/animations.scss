@@ -1,0 +1,35 @@
+.blur-in {
+  animation: blur-in 200ms ease-in;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+}
+@keyframes blur-in {
+  0% {
+    filter: blur(10px);
+    opacity: 0;
+    pointer-events: none;
+  }
+  100% {
+    filter: blur(0px);
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+.blur-out {
+  animation: blur-out 200ms ease-in;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+}
+@keyframes blur-out {
+  0% {
+    filter: blur(0px);
+    opacity: 1;
+    pointer-events: all;
+  }
+  100% {
+    filter: blur(10px);
+    opacity: 0;
+    pointer-events: none;
+  }
+}

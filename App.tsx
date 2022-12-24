@@ -2,10 +2,10 @@ import * as React from 'react';
 import Layout from './components/Layout';
 import MultiSelect from './components/MultiSelect';
 import Select, { Option } from './components/Select';
-import './style.scss';
+import './styles/style.scss';
 
 const options: Option[] = [
-  { label: 'First', value: 1 },
+  { label: 'Firstoptionoptionoptionoptionoptionoptionoptionoptionoptionoptionoptionoptionoptionoptionoptionoptionoptionoptionoption option, the one with a very long label', value: 1 },
   { label: 'Second', value: 2 },
   { label: 'Third', value: 3 },
   { label: 'Fourth', value: 4 },
@@ -35,6 +35,14 @@ export default function App() {
         selected={selectedMulti}
         onChange={setSelectedMulti}
       />
+
+      <div style={{width: 200}}>
+        <MultiSelect
+          options={options}
+          selected={selectedMulti}
+          onChange={setSelectedMulti}
+        />
+      </div>
     </Layout>
   );
 }
