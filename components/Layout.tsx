@@ -7,13 +7,13 @@ const andrejgroundUrl = 'https://andrejground.com/';
 
 const Layout = ({ children }: React.PropsWithChildren) => {
   const [dark, setDark] = useStorage('dark-mode', true);
-  const [darkAGWebsite] = useStorage<'dark' | 'light' | undefined>('theme', undefined);
   
   // sync the theme with AndrejGround website
   React.useEffect(() => {
+    const darkAGWebsite = localStorage.getItem('theme');
     if(darkAGWebsite ==='dark') setDark(true);
     if(darkAGWebsite ==='light') setDark(false);
-  }, [darkAGWebsite]);
+  }, []);
 
   React.useEffect(() => {
     document.body.classList[dark ? 'add' : 'remove']('dark');
