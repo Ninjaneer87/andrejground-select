@@ -8,14 +8,18 @@ const andrejgroundUrl = 'https://andrejground.com/';
 const Layout = ({ children }: React.PropsWithChildren) => {
   const [dark, setDark] = useStorage('dark-mode', true);
   
+  const handleMessage = (event: MessageEvent) => {
+    const message = event.data;
+    console.log(message.value); // outputs 'Hello, world!'
+  };
+
   // sync the theme with AndrejGround website
   React.useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const darkAGWebsite = searchParams.get('darkTheme');
-    console.log(window.location)
-    console.log({darkAGWebsite})
-    if(darkAGWebsite ==='dark') setDark(true);
-    if(darkAGWebsite ==='light') setDark(false);
+    // if(darkAGWebsite ==='dark') setDark(true);
+    // if(darkAGWebsite ==='light') setDark(false);
+
+    window.addEventListener('message', handleMessage);
+    return () => { window.removeEventListener('message', handleMessage) };
   }, []);
 
   React.useEffect(() => {
