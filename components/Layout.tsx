@@ -10,7 +10,10 @@ const Layout = ({ children }: React.PropsWithChildren) => {
   
   // sync the theme with AndrejGround website
   React.useEffect(() => {
-    const darkAGWebsite = localStorage.getItem('theme');
+    const searchParams = new URLSearchParams(window.location.search);
+    const darkAGWebsite = searchParams.get('darkTheme');
+    console.log(window.location)
+    console.log({darkAGWebsite})
     if(darkAGWebsite ==='dark') setDark(true);
     if(darkAGWebsite ==='light') setDark(false);
   }, []);
