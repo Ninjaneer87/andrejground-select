@@ -1,8 +1,9 @@
 import * as React from 'react';
 import Layout from './components/Layout';
 import MultiSelect from './components/MultiSelect';
-import Select, { Option } from './components/Select';
+import Select from './components/Select';
 import './styles/style.scss';
+import { Option } from './types/option.type';
 
 const options: Option[] = [
   { label: 'First option with a veeery long label', value: 1 },
@@ -20,7 +21,7 @@ export default function App() {
 
   return (
     <Layout>
-      <h2>Regular select</h2>
+      <h2>Select</h2>
       <Select 
         options={options} 
         selected={selected} 

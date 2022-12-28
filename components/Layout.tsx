@@ -6,29 +6,15 @@ const logoUrl = 'https://andrejground.com/_next/image?url=%2F_next%2Fstatic%2Fme
 const andrejgroundUrl = 'https://andrejground.com/';
 
 const Layout = ({ children }: React.PropsWithChildren) => {
-  const [dark, setDark] = useStorage('dark-mode', true);
+  const [dark, setDark] = useStorage('dark-mode', false);
   
-
-  // sync the theme with AndrejGround website
-  React.useEffect(() => {
-    const handleMessage = (event: MessageEvent) => {
-      const message = event.data;
-      const darkAGWebsite = message.value;
-      if(darkAGWebsite === true) setDark(true);
-      if(darkAGWebsite === false) setDark(false);
-    };
-
-    window.addEventListener('message', handleMessage);
-    return () => { window.removeEventListener('message', handleMessage) };
-  }, []);
-
   React.useEffect(() => {
     document.body.classList[dark ? 'add' : 'remove']('dark');
   }, [dark]);
 
   return (
     <React.Fragment>
-      <header>
+      <header className='blur-in'>
         <div className={classes.container}>
           <a href={andrejgroundUrl} target='_blank' className={classes.logo}>
             <div className={classes['logo-img']}>
@@ -50,7 +36,7 @@ const Layout = ({ children }: React.PropsWithChildren) => {
         </div>
       </header>
 
-      <main>{children}</main>
+      <main className='blur-in'>{children}</main>
     </React.Fragment>
   );
 };

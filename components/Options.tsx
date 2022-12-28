@@ -1,8 +1,8 @@
 import * as React from 'react';
 import useBoxPosition from '../hooks/useBoxPosition';
 import { useSyncRefs } from '../hooks/useSyncRefs';
+import { Option } from '../types/option.type';
 import { canFitBellow } from '../utils';
-import { Option } from './Select';
 import classes from './Options.module.scss';
 
 type Props = {
@@ -36,11 +36,11 @@ const Options = React.forwardRef<HTMLLIElement, Props>(
     const [fitsBellow, setFitsBellow] = React.useState(true);
 
     React.useEffect(() => {
-      if (open) {
-        setFitsBellow(canFitBellow(rootEl, listRef.current));
+      if (open && listRef.current) {
+        setFitsBellow(canFitBellow<HTMLElement, HTMLUListElement>(rootEl, listRef.current));
         boxRef.current?.scrollIntoView({ block: 'nearest' });
       }
-    }, [open]);
+    }, [open, boxRef, rootEl]);
 
     return (
       <ul

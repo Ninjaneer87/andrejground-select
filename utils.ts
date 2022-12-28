@@ -1,6 +1,6 @@
 import { Option } from './components/Select';
 
-export function canFitBellow(rootEl: HTMLElement, el: HTMLElement): boolean {
+export function canFitBellow<T extends HTMLElement, C extends HTMLElement>(rootEl: T, el: C): boolean {
   if (!el) return false;
 
   const elHeight = el.offsetHeight;

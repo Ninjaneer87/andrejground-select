@@ -3,11 +3,7 @@ import { useMounted } from '../hooks/useMounted';
 import { findNextIndexForGivenChar } from '../utils';
 import classes from './Select.module.scss';
 import Options from './Options';
-
-export type Option = {
-  label: string;
-  value: string | number;
-};
+import { Option } from '../types/option.type';
 
 type Props = {
   options: Option[];
@@ -46,7 +42,7 @@ const MultiSelect = ({ selected, onChange, options }: Props) => {
       setHoveredIndex(Math.max(options.indexOf(selected[0]), 0));
     } 
     else setOptionsMounted(false, 200);
-  }, [open, setOptionsMounted]);
+  }, [open, setOptionsMounted, options]);
   
   const keyHandler: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
     switch (e.code) {
@@ -59,6 +55,7 @@ const MultiSelect = ({ selected, onChange, options }: Props) => {
 
       case 'ArrowUp':
       case 'ArrowDown': {
+        e.preventDefault();
         if (!open) {
           setOpen(true);
           break;
@@ -145,7 +142,7 @@ const MultiSelect = ({ selected, onChange, options }: Props) => {
           selectOption={selectOption}
           hoveredIndex={hoveredIndex}
           setHoveredIndex={setHoveredIndex}
-          rootEl={rootRef.current}
+          rootEl={rootRef.current!}
           ref={hoveredRef}
         />
       ) : null}
