@@ -34,6 +34,8 @@ header {
   overflow: hidden;
   box-shadow: var(--shadow-3d-button);
   flex-shrink: 0;
+  display: grid;
+  place-items: center;
 }
 
 .logo-caption {
